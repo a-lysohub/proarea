@@ -17,7 +17,7 @@ export default function App(props) {
         setLoggedIn(false);
     }
     return (
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Route exact path="/">
                 {isLoggedIn ? (
                     <Redirect to="/dashboard" />
