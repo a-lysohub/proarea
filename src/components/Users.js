@@ -9,9 +9,10 @@ import {
     TableRow,
     Paper,
     Checkbox,
+    Button,
 } from "@material-ui/core";
 import EditUser from "./EditUser";
-import { updateUserData } from "../utils";
+import { deleteUserData, updateUserData } from "../utils";
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -31,12 +32,22 @@ const StyledTableRow = withStyles((theme) => ({
     },
 }))(TableRow);
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     table: {
         minWidth: 700,
         marginTop: 80,
     },
-});
+    bttn: {
+        background: "linear-gradient(45deg, #a9abad 20%, #515253 90%)",
+        border: 0,
+        borderRadius: 3,
+        boxShadow: "0 3px 5px 2px rgba(81, 82, 83, .3)",
+        color: "white",
+        height: 28,
+        padding: "0 30px",
+        marginRight: theme.spacing(1),
+    },
+}));
 
 export default function Users(props) {
     const classes = useStyles();
@@ -45,6 +56,10 @@ export default function Users(props) {
         props.onUpdate(true);
     };
 
+    const handleUserDelete = (user) => {
+        deleteUserData(user.id);
+        props.onUpdate(true);
+    };
     return (
         <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="customized table">
@@ -57,7 +72,10 @@ export default function Users(props) {
                             Is Admin
                         </StyledTableCell>
                         {props.isAdmin && (
-                            <StyledTableCell align="right"></StyledTableCell>
+                            <StyledTableCell align="center"></StyledTableCell>
+                        )}
+                        {props.isAdmin && (
+                            <StyledTableCell align="center"></StyledTableCell>
                         )}
                     </TableRow>
                 </TableHead>
@@ -84,12 +102,21 @@ export default function Users(props) {
                                     <EditUser
                                         user={user}
                                         onEdit={(newUserData) => {
-                                            handleUserEdit(
-                                                user,
-                                                newUserData
-                                            );
+                                            handleUserEdit(user, newUserData);
                                         }}
                                     ></EditUser>
+                                </StyledTableCell>
+                            )}
+                            {props.isAdmin && (
+                                <StyledTableCell align="right">
+                                    <Button
+                                        className={classes.bttn}
+                                        onClick={() => {
+                                            handleUserDelete(user);
+                                        }}
+                                    >
+                                        Delete
+                                    </Button>
                                 </StyledTableCell>
                             )}
                         </StyledTableRow>

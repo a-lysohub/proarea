@@ -40,7 +40,7 @@ export default function MainPage(props) {
     const [users, setUsers] = React.useState([]);
     const [shouldUpdate, setShouldUpdate] = React.useState(true);
     React.useEffect(() => {
-        if(shouldUpdate) {
+        if (shouldUpdate) {
             getAllUsers().then(setUsers);
             setShouldUpdate(false);
         }
@@ -49,7 +49,7 @@ export default function MainPage(props) {
     const isAdmin = users.find((user) => {
         return props.email === user.email;
     })?.isAdmin;
-    
+
     return (
         <Container fixed>
             <AppBar className={classes.toolBar} position="fixed">
@@ -76,7 +76,11 @@ export default function MainPage(props) {
                 </Container>
             </AppBar>
             <Container className={classes.table}>
-                <Users isAdmin={isAdmin} users={users} onUpdate={setShouldUpdate}></Users>
+                <Users
+                    isAdmin={isAdmin}
+                    users={users}
+                    onUpdate={setShouldUpdate}
+                ></Users>
             </Container>
         </Container>
     );

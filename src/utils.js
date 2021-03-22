@@ -2,31 +2,10 @@ import firebase from "firebase";
 
 export function addUser(email, password) {
     return firebase.auth().createUserWithEmailAndPassword(email, password);
-    /* .then((userCredential) => {
-            // Signed in
-            var user = userCredential.user;
-            // ...
-        })
-        .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorMessage);
-            // ..
-        }); */
 }
 
 export function loginUser(email, password) {
     return firebase.auth().signInWithEmailAndPassword(email, password);
-    /* .then((userCredential) => {
-            // Signed in
-            var user = userCredential.user;
-            // ...
-        })
-        .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorMessage);
-        }); */
 }
 
 export function createUserData(name, email, age, isAdmin) {
@@ -55,4 +34,8 @@ export function updateUserData(userId, email, name, age, isAdmin) {
 export async function getAllUsers() {
     const res = await firebase.database().ref("users").get();
     return Object.values(res.val());
+}
+
+export function deleteUserData(userId) {
+    firebase.database().ref("users/" + userId).remove();
 }

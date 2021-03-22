@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 3,
         boxShadow: "0 3px 5px 2px rgba(81, 82, 83, .3)",
         color: "white",
-        height: 34,
+        height: 28,
         padding: "0 30px",
         marginRight: theme.spacing(1),
     },
@@ -54,7 +54,7 @@ export default function EditUser(props) {
                 className={classes.bttn}
                 onClick={openDialogEdit}
             >
-                Edit User
+                Edit
             </Button>
             <Dialog open={openEdit}>
                 <DialogTitle>Edit</DialogTitle>
